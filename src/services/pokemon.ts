@@ -9,11 +9,11 @@ export const pokemonApi = createApi({
   }),
   tagTypes: ['Pokemon'],
   endpoints: (builder) => ({
-    getPersonsData: builder.query<any, void>({
+    getPokemonData: builder.query<any, void>({
       query: () => `/info`,
       providesTags: [{ type: 'Pokemon', id: 'LIST' }],
     }),
-    addPerson: builder.mutation<
+    addPokemon: builder.mutation<
       { name: string; number: string },
       { name: string; number: string }
     >({
@@ -31,4 +31,4 @@ export const pokemonApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetPersonsDataQuery, useAddPersonMutation } = pokemonApi
+export const { useGetPokemonDataQuery, useAddPokemonMutation } = pokemonApi
