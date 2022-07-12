@@ -1,5 +1,7 @@
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 import Header from '../features/header/Header'
 import Layout from '../features/layout/Layout'
@@ -9,7 +11,7 @@ import { NextPageWithLayout } from './_app'
 
 const Home: NextPageWithLayout = () => {
   return (
-    <main className=''>
+    <main className='flex-grow'>
       <Head>
         <title>PJ Forum</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -22,11 +24,7 @@ const Home: NextPageWithLayout = () => {
 }
 
 Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      <Home />
-    </Layout>
-  )
+  return <Layout>{page}</Layout>
 }
 
 export default Home

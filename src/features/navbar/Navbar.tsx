@@ -1,12 +1,23 @@
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({}) => {
+  const router = useRouter()
+
+  const handleLogoClick = () => {
+    router.push('/')
+  }
+
   return (
     <div className='navbar bg-base-300 sticky'>
       <div className='flex-1'>
-        <a className='btn btn-ghost normal-case text-xl'>PJ Forum</a>
+        <a
+          className='btn btn-ghost normal-case text-xl font-extrabold'
+          onClick={handleLogoClick}>
+          PJ Forum
+        </a>
       </div>
       <div className='flex-none gap-2'>
         <div className='form-control'>
@@ -39,7 +50,5 @@ const Navbar: FC<NavbarProps> = ({}) => {
     </div>
   )
 }
-
-
 
 export default Navbar

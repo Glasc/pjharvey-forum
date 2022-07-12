@@ -1,16 +1,25 @@
-import type { FC } from 'react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn, signOut, getSession, getProviders } from 'next-auth/react'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 
 interface LoginProps {}
 
-const Login: FC<LoginProps> = ({}) => {
+const Login: NextPage = ({
+  providers,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: session } = useSession()
+
+  const providersArr: any[] = Object?.values(providers) || []
 
   if (session) {
     return (
       <div>
         Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <button
+          onClick={() => {
+            signOut()
+          }}>
+          Sign out
+        </button>
       </div>
     )
   }
@@ -25,9 +34,15 @@ const Login: FC<LoginProps> = ({}) => {
           </div>
           <div className='card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100'>
             <div className='card-body'>
-              <div className='form-control'>
-                <button className='btn btn-accent' onClick={() => signIn()}>Sign in</button>
-              </div>
+              {providersArr?.map((provider) => (
+                <div key={provider?.name} className="flex justify-center">
+                  <button
+                    className='btn btn-secondary'
+                    onClick={() => signIn(provider?.id)}>
+                    Sign in with {provider?.name}
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -35,4 +50,12 @@ const Login: FC<LoginProps> = ({}) => {
     </div>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const providers = await getProviders()
+  return {
+    props: { providers },
+  }
+}
+
 export default Login

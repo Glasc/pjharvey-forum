@@ -1,8 +1,13 @@
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
+import ButtonCreatePost from '../../components/ButtonCreatePost'
 
 interface MenuProps {}
 
 const Menu: FC<MenuProps> = ({}) => {
+  const { data: session } = useSession()
+
   return (
     <section className='flex justify-between sticky my-4'>
       <div className='dropdown'>
@@ -21,10 +26,12 @@ const Menu: FC<MenuProps> = ({}) => {
         </ul>
       </div>
 
-      <button className='btn btn-primary rounded-lg block ml-auto'>
-        Create a new post
-      </button>
+      {session && <ButtonCreatePost />}
     </section>
   )
 }
+
+// get serversideprops typescript snippet
+// Language: typescript
+
 export default Menu

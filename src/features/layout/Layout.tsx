@@ -3,7 +3,7 @@ import Navbar from '../navbar/Navbar'
 
 const Layout = ({ children }: any) => {
   return (
-    <div className='w-full min-h-screen bg-base-300'>
+    <div className='w-full min-h-screen bg-base-300 flex flex-col'>
       <Navbar />
       {children}
       <NavbarBottom />

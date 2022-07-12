@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useGetPersonsDataQuery } from '../../services/person'
+import { useGetPersonsDataQuery } from '../../services/post'
 
 interface PersonListProps {}
 

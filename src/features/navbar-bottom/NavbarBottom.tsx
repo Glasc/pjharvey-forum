@@ -1,8 +1,24 @@
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 
 interface NavbarBottomProps {}
 
 const NavbarBottom: FC<NavbarBottomProps> = ({}) => {
+  const { data: session } = useSession()
+  const router = useRouter()
+  const handleLoginClick = () => router.push('/login')
+
+  if (!session) {
+    return (
+      <div className='btm-nav sticky'>
+        <button className='btn btn-secondary' onClick={handleLoginClick}>
+          login
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className='btm-nav sticky'>
       <button>
